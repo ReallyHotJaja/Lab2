@@ -7,6 +7,11 @@ using std::ifstream;
 using std::cout;
 
 const char *str;
+int RevMath();
+int NumCheck();
+int ForwAdd();
+double ForwMult();
+int prior();
 
 char get(){
     return *str++;
@@ -21,6 +26,23 @@ int NumCheck(){
     while (peek() >= '0' && peek() <= '9'){
         result = 10*result + get() - '0';
     }
+    return result;
+}
+
+int ForwAdd(){
+    int result;
+    double a = ForwMult();
+    if (a == 1.5){
+        return -1;
+    }
+    else{
+        result = a;
+    }
+    while (peek() == '+' || peek() == '-')
+        if (get() == '+')
+            result += ForwMult();
+        else
+            result -= ForwMult();
     return result;
 }
 
@@ -55,23 +77,6 @@ double ForwMult(){
             result /= b;
             }
         }
-    return result;
-}
-
-int ForwAdd(){
-    int result;
-    double a = ForwMult();
-    if (a == 1.5){
-        return -1;
-    }
-    else{
-        result = a;
-    }
-    while (peek() == '+' || peek() == '-')
-        if (get() == '+')
-            result += ForwMult();
-        else
-            result -= ForwMult();
     return result;
 }
 
